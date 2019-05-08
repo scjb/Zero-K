@@ -181,7 +181,7 @@ end
 
 
 function script.QueryWeapon(n)
-	return (is_open and muzzle) or muzzleProxy
+	return (is_open and muzzle) or aimProxy
 end
 
 function script.AimFromWeapon(n) 
