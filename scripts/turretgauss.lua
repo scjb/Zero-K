@@ -181,11 +181,11 @@ end
 
 
 function script.QueryWeapon(n)
-	return (is_open and muzzle) or aimProxy
+	return muzzleProxy
 end
 
 function script.AimFromWeapon(n) 
-	return aimProxy 
+	return muzzleProxy 
 end
 
 function script.AimWeapon(num, heading, pitch)
@@ -208,6 +208,7 @@ function script.AimWeapon(num, heading, pitch)
 	Turn(arm, x_axis, math.rad(30),10);
 	Turn(hand, x_axis, math.rad(30),10);
 	Turn(cannon, x_axis, -pitch-math.rad(33),10);
+	Turn(muzzleProxy, x_axis, -pitch,10);
 	 
 	WaitForTurn (belt, z_axis)
 	WaitForTurn (wheel, x_axis)
