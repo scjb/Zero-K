@@ -208,7 +208,7 @@ function script.AimWeapon(num, heading, pitch)
 	Turn(arm, x_axis, math.rad(30),10);
 	Turn(hand, x_axis, math.rad(30),10);
 	Turn(cannon, x_axis, -pitch-math.rad(33),10);
-	Turn(muzzleProxy, x_axis, -pitch,10);
+	Turn(aimProxy, x_axis, -pitch,10);
 	 
 	WaitForTurn (belt, z_axis)
 	WaitForTurn (wheel, x_axis)
