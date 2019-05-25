@@ -31,7 +31,7 @@ local baseComMorph = {
 --------------------------------------------------------------------------------
 -- customparams
 --------------------------------------------------------------------------------
-for i=1,#UnitDefs do
+for i = 1, #UnitDefs do
 	local ud = UnitDefs[i]
 	local cp = ud.customParams
 	local name = ud.name
@@ -43,6 +43,9 @@ for i=1,#UnitDefs do
 			into = morphTo,
 			time = cp.morphtime or (cp.level and math.floor((targetDef.metalCost - ud.metalCost) / (6 * (cp.level+1)))),	-- or 30,
 			combatMorph = cp.combatmorph == "1",
+			addMove = cp.addmove,
+			addFight = cp.addfight,
+			addPatrol = cp.addpatrol,
 		}
 	end
 end
@@ -70,7 +73,7 @@ end
 --------------------------------------------------------------------------------
 -- modular commander handling
 --------------------------------------------------------------------------------
-local comMorph = {	-- not needed
+local comMorph = { -- not needed
 	[1] = {time = 20,},
 	[2] = {time = 25,},
 	[3] = {time = 30,},
@@ -213,8 +216,8 @@ local function BuildMorphDef(udSrc, morphData)
 		newData.into = udDst.id
 		newData.time = morphData.time or math.floor(unitDef.buildTime*7/UPGRADING_BUILD_SPEED)
 		newData.increment = (1 / (30 * newData.time))
-		newData.metal	= morphData.metal or DefCost('metalCost', udSrc, udDst)
-		newData.energy = morphData.energy or DefCost('energyCost', udSrc, udDst)
+		newData.metal     = morphData.metal or DefCost('metalCost', udSrc, udDst)
+		newData.energy    = morphData.energy or DefCost('energyCost', udSrc, udDst)
 		newData.combatMorph = morphData.combatMorph or false
 		newData.resTable = {
 			m = (newData.increment * newData.metal),
@@ -222,8 +225,12 @@ local function BuildMorphDef(udSrc, morphData)
 		}
 		newData.facing = morphData.facing
 
-			MAX_MORPH = MAX_MORPH + 1 -- CMD_MORPH is the "generic" morph command. "Specific" morph command start at CMD_MORPH+1
-		newData.cmd	 = CMD_MORPH		+ MAX_MORPH
+		newData.addMove = udDst.canMove and not udSrc.udSrc
+		newData.addFight = udDst.canFight and not udSrc.canFight
+		newData.addPatrol = udDst.canPatrol and not udSrc.canPatrol
+
+		MAX_MORPH = MAX_MORPH + 1 -- CMD_MORPH is the "generic" morph command. "Specific" morph command start at CMD_MORPH+1
+		newData.cmd	 = CMD_MORPH + MAX_MORPH
 		newData.stopCmd = CMD_MORPH_STOP + MAX_MORPH
 
 		if (type(GG.MorphInfo)~="table") then

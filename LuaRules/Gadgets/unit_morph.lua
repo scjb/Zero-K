@@ -240,6 +240,10 @@ local function ReAssignAssists(newUnit,oldUnit)
 	end
 end
 
+local function SetUnitCommands(unitID, morphDef, adding)
+	Spring.Utilities.TableEcho(morphDef, "morphDef")
+end
+
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
@@ -259,6 +263,7 @@ local function StartMorph(unitID, unitDefID, teamID, morphDef)
 	end
 	
 	Spring.SetUnitRulesParam(unitID, "morphing", 1)
+	SetUnitCommands(unitID, morphDef, true)
 
 	if not morphDef.combatMorph then
 		Spring.SetUnitRulesParam(unitID, "morphDisable", 1)
@@ -313,11 +318,14 @@ local function StopMorph(unitID, morphData)
 		GG.UpdateUnitAttributes(unitID)
 	end
 	Spring.SetUnitRulesParam(unitID, "morphing", 0)
+	
 	local scale = morphData.progress * stopPenalty
 	local unitDefID = Spring.GetUnitDefID(unitID)
 
+	SetUnitCommands(unitID, morphData.def, false)
+	
 	Spring.SetUnitResourcing(unitID,"e", UnitDefs[unitDefID].energyMake)
-	local usedMetal	= morphData.def.metal	* scale
+	local usedMetal	= morphData.def.metal * scale
 	Spring.AddUnitResource(unitID, 'metal',	usedMetal)
 	--local usedEnergy = morphData.def.energy * scale
 	--Spring.AddUnitResource(unitID, 'energy', usedEnergy)

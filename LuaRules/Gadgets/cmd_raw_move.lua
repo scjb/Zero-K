@@ -780,6 +780,7 @@ function gadget:Initialize()
 	GG.StopRawMoveUnit = StopRawMoveUnit
 	GG.RawMove_IsPathFree = RawMove_IsPathFree
 	GG.WaitWaitMoveUnit = WaitWaitMoveUnit
+	GG.moveRawCmdDesc = moveRawCmdDesc
 end
 
 function gadget:UnitCreated(unitID, unitDefID, teamID)

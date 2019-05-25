@@ -23,6 +23,9 @@ unitDef = {
     morphtime      = 20,
     modelradius    = [[16]],
     priority_misc  = 2, -- High
+    addmove        = 1,
+    addfight       = 1,
+    addpatrol      = 1,
   },    
   
   energyUse                     = 0.8,
