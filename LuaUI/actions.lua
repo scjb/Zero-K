@@ -10,8 +10,7 @@
 --
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
---TODO more unification with LuaGadget's one
---TODO add LuaMessages
+--TODO more unification with Luaqwewqewqewqewqe
 
 if (actionHandler) then
 	return actionHandler
